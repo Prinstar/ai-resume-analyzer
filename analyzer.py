@@ -1,11 +1,12 @@
 import os
+import streamlit as st
 from groq import Groq
 from prompts import RESUME_ANALYSIS_PROMPT, JOB_MATCH_PROMPT, COVER_LETTER_PROMPT
 
 
 def get_client():
-    return Groq(api_key=os.getenv("GROQ_API_KEY"))
-
+    api_key = os.getenv("GROQ_API_KEY") or st.secrets.get("GROQ_API_KEY")
+    return Groq(api_key=api_key)
 
 def call_groq(prompt):
     client = get_client()
